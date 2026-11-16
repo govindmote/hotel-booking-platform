@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saltwater House - Boutique hotel in Goa</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#eef3f6;--ink:#10222d;--muted:#55697a;--sea:#0e3b4f;--sea2:#164e66;--brass:#b07d2b;--line:#cdd9e0;--card:#fff;--ok:#1b6b45;--bad:#a8321f}
+*{box-sizing:border-box;margin:0}
+body{font-family:"Hanken Grotesk",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:600}
+button,input,select{font:inherit}
+:focus-visible{outline:3px solid #6fb1c9;outline-offset:2px}
+.hero{background:var(--sea);color:#fff;padding:56px 24px 96px}
+.wrap{max-width:1100px;margin:0 auto}
+.hero h1{font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.05;max-width:15ch}
+.hero p{margin-top:14px;max-width:46ch;color:#c5dbe6}
+.search{background:var(--card);border-radius:14px;margin:-56px auto 32px;padding:20px;display:grid;grid-template-columns:repeat(4,1fr) auto;gap:14px;align-items:end;box-shadow:0 8px 30px rgba(14,59,79,.15)}
+.search label,.filters label{display:block;font-size:.82rem;font-weight:600;margin-bottom:4px;color:var(--muted)}
+input[type=date],input[type=number],input[type=text],input[type=email]{width:100%;padding:10px;border:1.5px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+.btn{background:var(--sea);color:#fff;border:0;border-radius:8px;padding:11px 20px;font-weight:600;cursor:pointer;transition:background .2s}
+.btn:hover{background:var(--sea2)}
+.btn.alt{background:none;color:var(--sea);border:1.5px solid var(--sea)}
+.btn[disabled]{background:#c8d3da;color:#6b7c88;cursor:not-allowed}
+.msg{grid-column:1/-1;color:var(--bad);font-size:.88rem;min-height:1.2em}
+.msg:empty{display:none}
+.filters{display:flex;flex-wrap:wrap;gap:20px;align-items:end;margin-bottom:24px}
+.filters input[type=range]{width:200px;accent-color:var(--sea)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:6px 14px;font-size:.88rem;cursor:pointer;transition:all .2s}
+.chip[aria-pressed=true]{background:var(--sea);border-color:var(--sea);color:#fff}
+select{padding:9px;border:1.5px solid var(--line);border-radius:8px;background:#fff}
+.count{color:var(--muted);margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;padding-bottom:64px}
+.room{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.art{height:150px;display:flex;align-items:flex-end;padding:14px;color:#fff;font-family:Newsreader,Georgia,serif;font-size:1.3rem}
+.body{padding:16px;display:flex;flex-direction:column;gap:12px;flex:1}
+.meta{color:var(--muted);font-size:.9rem}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{background:#e3edf2;color:var(--sea);border-radius:6px;padding:2px 9px;font-size:.78rem;font-weight:500}
+.price{margin-top:auto;display:flex;justify-content:space-between;align-items:end;gap:12px}
+.price b{font-size:1.35rem;font-family:Newsreader,Georgia,serif}
+.price small{display:block;color:var(--muted)}
+.status{font-size:.85rem;font-weight:600}
+.status.ok{color:var(--ok)}.status.no{color:var(--bad)}
+.empty{grid-column:1/-1;text-align:center;padding:48px;color:var(--muted)}
+dialog{border:0;border-radius:14px;padding:26px;width:min(440px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(10,25,35,.55)}
+dialog h2{font-size:1.5rem;margin-bottom:12px}
+.sum{border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:16px;font-size:.92rem}
+.sum div{display:flex;justify-content:space-between;padding:2px 0}
+.sum .tot{border-top:1px solid var(--line);margin-top:6px;padding-top:8px;font-weight:600}
+.f{margin-bottom:12px}.f p{color:var(--bad);font-size:.82rem;min-height:1em}
+.acts{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
+@media(max-width:860px){.search{grid-template-columns:1fr 1fr}.search .btn{grid-column:1/-1}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <h1>Saltwater House, Goa</h1>
+  <p>Twelve rooms between the paddy fields and the sea at Anjuna. Pick your dates to see what's open.</p>
+</div></header>
+
+<main class="wrap">
+  <form class="search" id="search" novalidate>
+    <div><label for="cin">Check-in</label><input type="date" id="cin" required></div>
+    <div><label for="cout">Check-out</label><input type="date" id="cout" required></div>
+    <div><label for="adults">Adults</label><input type="number" id="adults" min="1" max="6" value="2"></div>
+    <div><label for="kids">Children</label><input type="number" id="kids" min="0" max="4" value="0"></div>
+    <button class="btn" type="submit">Check availability</button>
+    <p class="msg" id="msg" role="alert"></p>
+  </form>
+
+  <section class="filters" aria-label="Filter rooms">
+    <div><label for="max">Max price per night: <output id="maxout"></output></label><input type="range" id="max" min="3000" max="20000" step="500" value="20000"></div>
+    <div><label id="am-l">Amenities</label><div class="chips" id="chips" role="group" aria-labelledby="am-l"></div></div>
+    <div><label for="sort">Sort by</label><select id="sort"><option value="p">Price: low to high</option><option value="d">Price: high to low</option><option value="c">Sleeps most</option></select></div>
+  </section>
+
+  <p class="count" id="count" aria-live="polite"></p>
+  <section class="grid" id="grid"></section>
+</main>
+
+<dialog id="dlg" aria-labelledby="dt"></dialog>
+
+<script>
+const ROOMS = [
+  {id:1,name:"Garden Room",price:4200,cap:2,am:["Wi-Fi","AC","Breakfast"],c:["#2f6b5a","#5b9a7f"],booked:[["2026-11-20","2026-11-25"]]},
+  {id:2,name:"Courtyard Twin",price:5100,cap:3,am:["Wi-Fi","AC","Breakfast","Pool view"],c:["#3a5f8a","#6d95c0"],booked:[["2026-12-24","2027-01-02"]]},
+  {id:3,name:"Sea-view Deluxe",price:7800,cap:3,am:["Wi-Fi","AC","Balcony","Pool view"],c:["#0e3b4f","#3f8aa3"],booked:[["2026-11-18","2026-11-22"],["2026-12-20","2027-01-03"]]},
+  {id:4,name:"Balcony Suite",price:10500,cap:4,am:["Wi-Fi","AC","Breakfast","Balcony","Kitchenette"],c:["#7a4b2a","#b9835a"],booked:[["2026-12-01","2026-12-08"]]},
+  {id:5,name:"Family Loft",price:12400,cap:5,am:["Wi-Fi","AC","Breakfast","Kitchenette"],c:["#5a4a7a","#8f7fb5"],booked:[]},
+  {id:6,name:"Penthouse",price:18000,cap:4,am:["Wi-Fi","AC","Breakfast","Balcony","Pool view","Kitchenette"],c:["#8a6a1f","#c9a24a"],booked:[["2026-11-16","2026-12-31"]]}
+];
+const AMEN = ["Wi-Fi","AC","Breakfast","Balcony","Pool view","Kitchenette"];
+const TAX = 0.12;
+const $ = s => document.querySelector(s);
+const inr = n => "₹" + Math.round(n).toLocaleString("en-IN");
+const sel = new Set();
+let stay = null; // {cin, cout, nights, guests} once dates are valid
+
+const today = new Date(); today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+const todayStr = today.toISOString().slice(0, 10);
+$("#cin").min = $("#cout").min = todayStr;
+
+const nightsBetween = (a, b) => Math.round((new Date(b) - new Date(a)) / 864e5);
+const isFree = (r, a, b) => !r.booked.some(([s, e]) => a < e && s < b);
+
+AMEN.forEach(a => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "chip"; b.textContent = a; b.setAttribute("aria-pressed", "false");
+  b.onclick = () => { sel.has(a) ? sel.delete(a) : sel.add(a); b.setAttribute("aria-pressed", sel.has(a)); render(); };
+  $("#chips").append(b);
+});
+
+function readStay() {
+  const cin = $("#cin").value, cout = $("#cout").value;
+  const guests = (+$("#adults").value || 0) + (+$("#kids").value || 0);
+  let err = "";
+  if (!cin || !cout) err = "Choose both a check-in and a check-out date.";
+  else if (cin < todayStr) err = "Check-in can't be in the past.";
+  else if (cout <= cin) err = "Check-out must be after check-in.";
+  else if (guests < 1) err = "Add at least one guest.";
+  $("#msg").textContent = err;
+  stay = err ? null : { cin, cout, guests, nights: nightsBetween(cin, cout) };
+  return !err;
+}
+
+function render() {
+  const max = +$("#max").value;
+  $("#maxout").textContent = max >= 20000 ? "any" : inr(max);
+  let list = ROOMS.filter(r => r.price <= max && [...sel].every(a => r.am.includes(a)));
+  const s = $("#sort").value;
+  list.sort((a, b) => s === "p" ? a.price - b.price : s === "d" ? b.price - a.price : b.cap - a.cap);
+  $("#count").textContent = list.length + (list.length === 1 ? " room" : " rooms") + (stay ? ` for ${stay.nights} night${stay.nights > 1 ? "s" : ""}, ${stay.guests} guest${stay.guests > 1 ? "s" : ""}` : "");
+  $("#grid").innerHTML = list.length ? list.map(card).join("") : '<p class="empty">No rooms match these filters. Try raising the price limit or clearing an amenity.</p>';
+}
+
+function card(r) {
+  let status = "", cost = `<span><b>${inr(r.price)}</b><small>per night</small></span>`, ok = false;
+  if (stay) {
+    if (stay.guests > r.cap) status = `<span class="status no">Too many guests</span>`;
+    else if (!isFree(r, stay.cin, stay.cout)) status = '<span class="status no">Booked for these dates</span>';
+    else { ok = true; const sub = r.price * stay.nights;
+      status = '<span class="status ok">Available</span>';
+      cost = `<span><b>${inr(sub * (1 + TAX))}</b><small>${stay.nights} night${stay.nights > 1 ? "s" : ""}, incl. 12% tax</small></span>`; }
+  }
+  return `<article class="room"><div class="art" style="background:linear-gradient(135deg,${r.c[0]},${r.c[1]})">${r.name}</div>
+    <div class="body"><div class="meta">Sleeps ${r.cap} ${status ? "· " : ""}${status}</div>
+    <div class="badges">${r.am.map(a => `<span class="badge">${a}</span>`).join("")}</div>
+    <div class="price">${cost}<button class="btn" data-id="${r.id}" ${stay ? (ok ? "" : "disabled") : 'data-pick="1"'}>${stay ? "Book now" : "Pick dates"}</button></div></div></article>`;
+}
+
+$("#search").addEventListener("submit", e => { e.preventDefault(); readStay(); render(); });
+$("#cin").addEventListener("change", () => {
+  const c = $("#cin").value;
+  if (c) { const d = new Date(c); d.setDate(d.getDate() + 1); $("#cout").min = d.toISOString().slice(0, 10); }
+});
+["max", "sort"].forEach(id => $("#" + id).addEventListener("input", render));
+$("#grid").addEventListener("click", e => {
+  const b = e.target.closest("button[data-id]"); if (!b) return;
+  if (b.dataset.pick) { $("#cin").focus(); $("#msg").textContent = "Choose your dates first."; return; }
+  openModal(ROOMS.find(r => r.id === +b.dataset.id));
+});
+
+function openModal(r) {
+  const sub = r.price * stay.nights, tax = sub * TAX, d = $("#dlg");
+  d.innerHTML = `<form method="dialog" id="bf" novalidate><h2 id="dt">Confirm your stay</h2>
+    <div class="sum"><div><span>${r.name}</span><span>${inr(r.price)} / night</span></div>
+    <div><span>${stay.cin} to ${stay.cout}</span><span>${stay.nights} night${stay.nights > 1 ? "s" : ""}</span></div>
+    <div><span>Guests</span><span>${stay.guests}</span></div>
+    <div><span>Subtotal</span><span>${inr(sub)}</span></div><div><span>Tax (12%)</span><span>${inr(tax)}</span></div>
+    <div class="tot"><span>Total</span><span>${inr(sub + tax)}</span></div></div>
+    <div class="f"><label for="gn">Full name</label><input type="text" id="gn" autocomplete="name"><p id="gne" role="alert"></p></div>
+    <div class="f"><label for="ge">Email</label><input type="email" id="ge" autocomplete="email"><p id="gee" role="alert"></p></div>
+    <div class="acts"><button type="button" class="btn alt" id="cx">Cancel</button><button type="submit" class="btn">Confirm booking</button></div></form>`;
+  d.showModal();
+  $("#cx").onclick = () => d.close();
+  $("#bf").onsubmit = e => {
+    e.preventDefault();
+    const n = $("#gn").value.trim(), m = $("#ge").value.trim();
+    $("#gne").textContent = n.length < 2 ? "Enter your full name." : "";
+    $("#gee").textContent = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m) ? "" : "Enter a valid email address.";
+    if (n.length < 2 || $("#gee").textContent) return;
+    r.booked.push([stay.cin, stay.cout]); // room is now taken for these dates
+    const ref = "SW-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+    d.innerHTML = `<h2 id="dt">Booking confirmed</h2><p>Thank you, ${n.replace(/[<>&]/g, "")}. ${r.name} is yours from ${stay.cin} to ${stay.cout}.</p>
+      <p style="margin:12px 0"><b>Reference: ${ref}</b></p><p class="meta">This is a demo, so no email was sent and no payment was taken.</p>
+      <div class="acts"><button class="btn" id="ok">Done</button></div>`;
+    $("#ok").onclick = () => { d.close(); render(); };
+    $("#ok").focus();
+  };
+}
+render();
+</script>
+</body>
+</html>
